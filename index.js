@@ -1,21 +1,34 @@
 const KEY = '6351e9fb1889b2acebda2955c93fe660';
-const city = 'Raleigh';
+const defaultCity = 'Raleigh';
 const units = 'imperial';
 
-fetch(
-  `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&APPID=${KEY}`
-)
-  .then((response) => response.json())
-  .then(parseData)
-  .catch(console.error);
+const searchButton = document.querySelector('#search-button');
+searchButton.addEventListener('click', handleClick);
+
+getData();
+
+function getData(location = defaultCity) {
+  fetch(
+    `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=${units}&APPID=${KEY}`
+  )
+    .then((response) => response.json())
+    .then(parseData)
+    .catch(console.error);
+}
+
+function handleClick(e) {
+  e.preventDefault();
+  const form = document.querySelector('form');
+  getData(form.location.value);
+}
 
 function parseData(json) {
   const current = {
-    location: json.name,
-    temp: json.main.temp,
-    feelsLike: json.main.feels_like,
-    humidity: json.main.humidity,
-    wind: json.wind.speed,
+    location: json.name ? json.name : 'error',
+    temp: json.main.temp ? json.main.temp : 'error',
+    feelsLike: json.main.feels_like ? json.main.feels_like : 'error',
+    humidity: json.main.humidity ? json.main.humidity : 'error',
+    wind: json.wind.speed ? json.wind.speed : 'error',
   };
   renderData(current);
 }
