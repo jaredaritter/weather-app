@@ -1,5 +1,5 @@
 # Weather App
 
-# API Key
+# Key
 
-API key currently stored in an environment variable and you will need to create your own.
+Could not come up with a decent client side solution to hide the key.
