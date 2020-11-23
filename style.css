@@ -5,6 +5,16 @@ body {
 }
 
 .container {
-  width: 800px;
+  font-family: 'Courier New', Courier, monospace;
+  width: 600px;
+  margin: 20px auto;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+  box-shadow: 2px 2px 3px lightgray;
+}
+
+.mini {
+  width: 500px;
   margin: auto;
+  text-align: center;
 }
