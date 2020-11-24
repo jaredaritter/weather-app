@@ -1,9 +1,12 @@
 const KEY = '6351e9fb1889b2acebda2955c93fe660';
-const defaultCity = 'Raleigh';
+const defaultCity = 'raleigh';
 const units = 'imperial';
 
-const searchButton = document.querySelector('#search-button');
-searchButton.addEventListener('click', handleClick);
+// const searchButton = document.querySelector('#search-button');
+// searchButton.addEventListener('click', handleClick);
+
+const form = document.querySelector('form');
+form.addEventListener('submit', handleSubmit);
 
 getData();
 
@@ -16,9 +19,14 @@ function getData(location = defaultCity) {
     .catch(console.error);
 }
 
-function handleClick(e) {
+// function handleClick(e) {
+//   e.preventDefault();
+//   const input = document.querySelector('input');
+//   getData(input.value);
+// }
+
+function handleSubmit(e) {
   e.preventDefault();
-  const form = document.querySelector('form');
   getData(form.location.value);
 }
 
