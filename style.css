@@ -19,3 +19,11 @@ body {
   margin: auto;
   text-align: center;
 }
+
+.error {
+  color: red;
+}
+
+.hidden {
+  display: none;
+}

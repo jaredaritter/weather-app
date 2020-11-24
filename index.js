@@ -2,9 +2,6 @@ const KEY = '6351e9fb1889b2acebda2955c93fe660';
 const defaultCity = 'raleigh';
 const units = 'imperial';
 
-// const searchButton = document.querySelector('#search-button');
-// searchButton.addEventListener('click', handleClick);
-
 const form = document.querySelector('form');
 form.addEventListener('submit', handleSubmit);
 
@@ -19,18 +16,17 @@ function getData(location = defaultCity) {
     .catch(console.error);
 }
 
-// function handleClick(e) {
-//   e.preventDefault();
-//   const input = document.querySelector('input');
-//   getData(input.value);
-// }
-
 function handleSubmit(e) {
   e.preventDefault();
   getData(form.location.value);
+  form.location.value = '';
 }
 
 function parseData(json) {
+  if (json.message === 'city not found') {
+    renderError(json.message);
+    throw json.message;
+  }
   const current = {
     location: json.name ? json.name : 'error',
     temp: json.main.temp ? json.main.temp : 'error',
@@ -38,7 +34,14 @@ function parseData(json) {
     humidity: json.main.humidity ? json.main.humidity : 'error',
     wind: json.wind.speed ? json.wind.speed : 'error',
   };
+  removeError();
   renderData(current);
+}
+
+function removeError() {
+  const error = document.querySelector('.error');
+  error.classList.add('hidden');
+  error.textContent = '';
 }
 
 function renderData(obj) {
@@ -53,4 +56,10 @@ function renderData(obj) {
   feelsLike.textContent = obj.feelsLike + '°F';
   humidity.textContent = obj.humidity + '%';
   wind.textContent = obj.wind + 'mph';
+}
+
+function renderError(msg) {
+  const error = document.querySelector('.error');
+  error.classList.remove('hidden');
+  error.textContent = msg;
 }
